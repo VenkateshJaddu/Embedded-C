@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;Speedometer/Core/Src/CAN_Functionalities&apos; to &apos;CAN_Functionalities.c&apos;" description="Rename resource &apos;CAN_Functionalities&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Core/Src/CAN_Functionalities" name="CAN_Functionalities.c" stamp="1735714645536" updateReferences="true"/>
+</session>

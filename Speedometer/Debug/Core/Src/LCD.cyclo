@@ -1,0 +1,8 @@
+../Core/Src/LCD.c:3:6:LCD_Init	1
+../Core/Src/LCD.c:21:6:LCD_Command	1
+../Core/Src/LCD.c:25:6:LCD_Data	1
+../Core/Src/LCD.c:31:6:LCD_Send	7
+../Core/Src/LCD.c:79:6:LCD_Print	2
+../Core/Src/LCD.c:86:6:LCD_SetCursor	2
+../Core/Src/LCD.c:91:6:LCD_Clear	1
+../Core/Src/LCD.c:97:6:Print_num	2

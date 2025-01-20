@@ -1,0 +1,16 @@
+../Core/Src/main_1.c:15:5:main	1
+../Core/Src/main_1.c:39:6:Print_num	2
+../Core/Src/main_1.c:59:6:UART_init	2
+../Core/Src/main_1.c:75:6:I2C_Init	2
+../Core/Src/main_1.c:95:6:SystemClockConfig	7
+../Core/Src/main_1.c:186:6:LCD_Init	1
+../Core/Src/main_1.c:206:6:LCD_Command	1
+../Core/Src/main_1.c:210:6:LCD_Data	1
+../Core/Src/main_1.c:216:6:LCD_Send	5
+../Core/Src/main_1.c:251:6:LCD_Print	2
+../Core/Src/main_1.c:258:6:LCD_SetCursor	2
+../Core/Src/main_1.c:264:6:HAL_I2C_MasterTxCpltCallback	2
+../Core/Src/main_1.c:272:6:HAL_I2C_ErrorCallback	2
+../Core/Src/main_1.c:280:6:send_msg	1
+../Core/Src/main_1.c:289:6:error_handler	1
+../Core/Src/main_1.c:295:6:LCD_Clear	1

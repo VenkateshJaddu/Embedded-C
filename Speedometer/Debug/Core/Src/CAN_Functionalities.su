@@ -1,0 +1,11 @@
+../Core/Src/CAN_Functionalities.c:3:6:CAN_Init	8	static
+../Core/Src/CAN_Functionalities.c:34:6:CAN_Tx	48	static
+../Core/Src/CAN_Functionalities.c:52:6:CAN_Rx	104	static
+../Core/Src/CAN_Functionalities.c:89:6:CAN_Filter_Config	48	static
+../Core/Src/CAN_Functionalities.c:112:6:HAL_CAN_TxMailbox0CompleteCallback	16	static
+../Core/Src/CAN_Functionalities.c:117:6:HAL_CAN_TxMailbox1CompleteCallback	16	static
+../Core/Src/CAN_Functionalities.c:121:6:HAL_CAN_TxMailbox2CompleteCallback	16	static
+../Core/Src/CAN_Functionalities.c:125:6:HAL_CAN_RxFifo0MsgPendingCallback	56	static
+../Core/Src/CAN_Functionalities.c:161:6:speed	24	static
+../Core/Src/CAN_Functionalities.c:174:6:Mode	16	static
+../Core/Src/CAN_Functionalities.c:209:6:HAL_CAN_ErrorCallback	16	static

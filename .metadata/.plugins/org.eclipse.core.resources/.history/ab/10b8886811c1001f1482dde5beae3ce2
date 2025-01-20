@@ -1,0 +1,193 @@
+#include "main_1.h"
+
+void UART2_Init(void);
+void SystemClockConfig(uint8_t);
+void error_handler(void);
+void CAN_Init(void);
+void CAN_Tx(void);
+
+UART_HandleTypeDef huart;
+CAN_HandleTypeDef hcan;
+
+int main()
+{
+	HAL_Init();
+
+	SystemClockConfig(SYS_CLK_FREQ_50_MHZ);
+
+	UART2_Init();
+
+	CAN_Init(); // This will change the CAN from Sleep mode to Initialize state
+
+	// This will change CAN from Initialize state to Normal mode
+	if(HAL_CAN_Start(&hcan) != HAL_OK)
+	{
+		error_handler();
+	}
+	CAN_Tx();
+
+	while(1);
+
+	return 0;
+}
+
+void UART2_Init()
+{
+	huart.Instance = USART2;
+	huart.Init.BaudRate = 115200;
+	huart.Init.WordLength = UART_WORDLENGTH_8B;
+	huart.Init.StopBits = UART_STOPBITS_1;
+	huart.Init.Parity = UART_PARITY_NONE;
+	huart.Init.Mode = UART_MODE_TX_RX;
+	huart.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+
+	if((HAL_UART_Init(&huart)) != HAL_OK)
+	{
+		error_handler();
+	}
+}
+
+void CAN_Init(void)
+{
+	hcan.Instance = CAN1;
+	hcan.Init.Mode = CAN_MODE_LOOPBACK;
+	hcan.Init.AutoBusOff = DISABLE;
+	hcan.Init.AutoRetransmission = ENABLE;
+	hcan.Init.AutoWakeUp = DISABLE;
+	hcan.Init.ReceiveFifoLocked = DISABLE;
+	hcan.Init.TimeTriggeredMode = DISABLE;
+	hcan.Init.TransmitFifoPriority = DISABLE;
+
+	//Time Quanta Parameter settings
+	hcan.Init.Prescaler = 5;
+	hcan.Init.SyncJumpWidth = CAN_SJW_1TQ;
+	hcan.Init.TimeSeg1 = CAN_BS1_8TQ;
+	hcan.Init.TimeSeg2 = CAN_BS2_1TQ;
+
+	if(HAL_CAN_Init(&hcan) != HAL_OK)
+		{
+			error_handler();
+		}
+
+}
+
+void CAN_Tx(void)
+{
+	char msg[100];
+
+	CAN_TxHeaderTypeDef CAN_Tx;
+	uint32_t TxMailbox;
+	uint8_t data_msg[5] = {'H','E','L','L','0'};
+
+	CAN_Tx.StdId =  620;
+	CAN_Tx.IDE = CAN_ID_STD;
+	CAN_Tx.RTR = CAN_RTR_DATA;
+	CAN_Tx.DLC = 5;
+
+	if(HAL_CAN_AddTxMessage(&hcan, &CAN_Tx, data_msg, &TxMailbox) != HAL_OK)
+		{
+			error_handler();
+		}
+
+	while(HAL_CAN_IsTxMessagePending(&hcan,TxMailbox));
+
+	sprintf(msg,"Message Transmitted\n\r");
+	HAL_UART_Transmit(&huart,(uint8_t)msg,sizeof(msg), HAL_MAX_DELAY);
+}
+
+void SystemClockConfig(uint8_t clk_freq)
+{
+	RCC_OscInitTypeDef osc_init;
+	RCC_ClkInitTypeDef clk_init;
+
+	uint8_t FLatency =0;
+
+	osc_init.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+	osc_init.HSEState = RCC_HSE_BYPASS;
+
+	osc_init.PLL.PLLState = RCC_PLL_ON;
+	osc_init.PLL.PLLSource = RCC_PLLSOURCE_HSE;
+
+	switch(clk_freq)
+	{
+	case SYS_CLK_FREQ_50_MHZ:
+	{
+		osc_init.PLL.PLLM = 8;
+		osc_init.PLL.PLLN = 100;
+		osc_init.PLL.PLLP = 2;
+		osc_init.PLL.PLLQ = 2;
+		osc_init.PLL.PLLR = 2;
+		clk_init.ClockType = RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK |
+							RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
+		clk_init.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+		clk_init.AHBCLKDivider = RCC_SYSCLK_DIV1;
+		clk_init.APB1CLKDivider = RCC_HCLK_DIV2;
+		clk_init.APB2CLKDivider = RCC_HCLK_DIV2;
+
+		FLatency = FLASH_ACR_LATENCY_1WS;
+		break;
+	}
+
+	case SYS_CLK_FREQ_84_MHZ:
+	{
+		osc_init.PLL.PLLM = 8;
+		osc_init.PLL.PLLN = 160;
+		osc_init.PLL.PLLP = 2;
+		osc_init.PLL.PLLQ = 2;
+		osc_init.PLL.PLLR = 2;
+		clk_init.ClockType = RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK |
+							RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
+		clk_init.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+		clk_init.AHBCLKDivider = RCC_SYSCLK_DIV1;
+		clk_init.APB1CLKDivider = RCC_HCLK_DIV2;
+		clk_init.APB2CLKDivider = RCC_HCLK_DIV2;
+
+		FLatency = FLASH_ACR_LATENCY_2WS;
+		break;
+	}
+	case SYS_CLK_FREQ_120_MHZ:
+	{
+		osc_init.PLL.PLLM = 8;
+		osc_init.PLL.PLLN = 240;
+		osc_init.PLL.PLLP = 2;
+		osc_init.PLL.PLLQ = 2;
+		osc_init.PLL.PLLR = 2;
+		clk_init.ClockType = RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK |
+							RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
+		clk_init.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+		clk_init.AHBCLKDivider = RCC_SYSCLK_DIV1;
+		clk_init.APB1CLKDivider = RCC_HCLK_DIV4;
+		clk_init.APB2CLKDivider = RCC_HCLK_DIV2;
+
+		FLatency = FLASH_ACR_LATENCY_3WS;
+		break;
+	}
+	default:
+		return;
+	}
+
+	if(HAL_RCC_OscConfig(&osc_init) != HAL_OK)
+		{
+			error_handler();
+		}
+	if(HAL_RCC_ClockConfig(&clk_init, FLatency) != HAL_OK)
+		{
+			error_handler();
+		}
+
+
+	/*
+	 * Redo systick Configuration here as we configuring HCLK as 4MHZ here but before HCLK is 16MHZ.
+	 * This will Wait for the crystal to stabilize.
+	 * Also Ensure proper transitions between clock sources.
+	 * */
+	HAL_SYSTICK_Config(HAL_RCC_GetSysClockFreq()/1000);
+	HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);
+}
+
+void error_handler(void)
+{
+	printf("Failed\n");
+	while(1);
+}
+

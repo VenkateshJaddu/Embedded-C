@@ -1,0 +1,14 @@
+../Core/Src/main_1.c:17:5:main	3
+../Core/Src/main_1.c:49:6:UART2_Init	2
+../Core/Src/main_1.c:65:6:CAN_Init	2
+../Core/Src/main_1.c:96:6:CAN_Tx	2
+../Core/Src/main_1.c:114:6:CAN_Filter_Config	2
+../Core/Src/main_1.c:134:6:SystemClockConfig	7
+../Core/Src/main_1.c:226:6:HAL_CAN_TxMailbox0CompleteCallback	1
+../Core/Src/main_1.c:231:6:HAL_CAN_TxMailbox1CompleteCallback	1
+../Core/Src/main_1.c:235:6:HAL_CAN_TxMailbox2CompleteCallback	1
+../Core/Src/main_1.c:239:6:HAL_CAN_RxFifo0MsgPendingCallback	9
+../Core/Src/main_1.c:294:6:speed	1
+../Core/Src/main_1.c:305:6:send_msg	1
+../Core/Src/main_1.c:313:6:HAL_CAN_ErrorCallback	1
+../Core/Src/main_1.c:319:6:error_handler	1

@@ -1,0 +1,5 @@
+../Core/Src/it.c:3:6:SysTick_Handler	1
+../Core/Src/it.c:9:6:CAN1_TX_IRQHandler	1
+../Core/Src/it.c:13:6:CAN1_RX0_IRQHandler	1
+../Core/Src/it.c:17:6:CAN1_RX1_IRQHandler	1
+../Core/Src/it.c:21:6:CAN1_SCE_IRQHandler	1

@@ -1,0 +1,8 @@
+../Core/Src/main_1.c:11:5:main	8	static
+../Core/Src/main_1.c:53:6:UART2_Init	8	static
+../Core/Src/main_1.c:69:6:I2C_Init	8	static
+../Core/Src/main_1.c:87:6:HAL_I2C_MasterTxCpltCallback	16	static
+../Core/Src/main_1.c:95:6:HAL_I2C_ErrorCallback	16	static
+../Core/Src/main_1.c:105:6:SystemClockConfig	96	static
+../Core/Src/main_1.c:196:6:send_msg	24	static
+../Core/Src/main_1.c:205:6:error_handler	8	static
